@@ -33,6 +33,8 @@ class HefestosORM
     }
 
 
+
+
     /**
      * Formata as informações de conexão com o banco, retornando o dsn, usuario e senha
      * @author Brunoggdev
@@ -47,6 +49,8 @@ class HefestosORM
     }
 
 
+
+
     /**
      * Retorna a conexão ativa do banco de dados (singleton).
      * @param array $config Array associativo com as chaves 'driver' (sqlite ou mysql),
@@ -57,7 +61,7 @@ class HefestosORM
     {
         if (!is_null(self::$instancia)) {
             self::$instancia->tabela('');
-            
+
             return self::$instancia;
         }
 
@@ -71,6 +75,8 @@ class HefestosORM
     }
 
 
+
+
     /**
      * Fecha a conexão com o banco de dados.
      * @author Brunoggdev
@@ -82,6 +88,8 @@ class HefestosORM
     }
 
 
+
+
     /**
      * Define a tabela na qual o as próximas consultas serão executadas
     */
@@ -91,6 +99,8 @@ class HefestosORM
 
         return $this;
     }
+
+
 
 
     /**
@@ -105,6 +115,7 @@ class HefestosORM
 
         return $this;
     }
+
 
 
 
@@ -129,6 +140,7 @@ class HefestosORM
     }
    
    
+
    
     /**
      * Cria uma sql para DELETE
@@ -147,6 +159,7 @@ class HefestosORM
 
 
 
+
     /**
     * Adiciona um UPDATE na consulta
     * @author brunoggdev
@@ -162,6 +175,7 @@ class HefestosORM
         
         return $this->executarQuery();
     }
+
 
 
 
@@ -214,6 +228,8 @@ class HefestosORM
     }
 
 
+
+
     /**
     * Adiciona um OR na consulta e em seguida um where novamente
     * @author Brunoggdev
@@ -225,6 +241,8 @@ class HefestosORM
         
         return $this;
     }
+
+
 
 
     /**
@@ -239,6 +257,8 @@ class HefestosORM
     }
 
 
+
+
     /**
     * Adiciona um ORDER BY na query
     * @author brunoggdev
@@ -249,6 +269,8 @@ class HefestosORM
         
         return $this;
     }
+
+
 
 
     /**
@@ -267,6 +289,8 @@ class HefestosORM
     }
 
 
+
+
     /**
      * Pega o primeiro resultado da consulta, podendo retornar uma coluna especifica
      * @author brunoggdev
@@ -281,6 +305,8 @@ class HefestosORM
 
         return $this->como_array ? $resultado : new Colecao($resultado);
     }
+
+
 
 
     /**
@@ -300,6 +326,8 @@ class HefestosORM
 
         return $this->como_array ? $resultado : new Colecao($resultado);
     }
+
+
 
 
     /**
@@ -328,6 +356,8 @@ class HefestosORM
     }
 
 
+
+
     /**
     * Retorna a string montada da consulta
     * @author brunoggdev
@@ -336,6 +366,8 @@ class HefestosORM
     {
         return $this->query;
     }
+
+
 
 
     /**
@@ -348,6 +380,8 @@ class HefestosORM
     }
 
 
+
+
     /**
      * Retorna o último id inserido pela sql mais recente
      * @author Brunoggdev
@@ -358,6 +392,8 @@ class HefestosORM
     }
 
 
+
+
     /**
     * Retorna os erros que ocorreram durante a execução da SQL
     * @author brunoggdev
@@ -366,6 +402,8 @@ class HefestosORM
     {
         return $this->query_info->errorInfo();
     }
+
+
 
 
     /**
@@ -380,6 +418,8 @@ class HefestosORM
     }
 
     
+
+
     /**
     * Define o retorno do banco de dados como um objeto do tipo colecao
     * @author Brunoggdev
@@ -390,6 +430,8 @@ class HefestosORM
 
         return $this;
     }
+
+
 
 
     /**
@@ -405,6 +447,7 @@ class HefestosORM
 
 
 
+
     /**
     * Retorna todas as linhas da tabela desejada com todas as colunas ou colunas especificas
     * @author Brunoggdev
@@ -413,6 +456,7 @@ class HefestosORM
     {
         return $this->select($colunas)->todos($coluna_unica);
     }
+
 
 
 
@@ -427,6 +471,7 @@ class HefestosORM
 
 
 
+    
     /**
      * Retorna o primeiro resultado para o 'where' informado
     */
