@@ -144,9 +144,9 @@ class HefestosORM
     * Adiciona um UPDATE na consulta
     * @author brunoggdev
     */
-    public function update(array $params, array $where = []): bool
+    public function update(array|object $params, array $where = []): bool
     {
-        $this->params = $params;
+        $this->params = (array) $params;
     
         $novos_valores = implode(', ', array_map(fn($key) => "$key = :$key", array_keys($params)));
     
@@ -169,6 +169,10 @@ class HefestosORM
     {
         if (empty($params)) {
             return $this;
+        }
+        
+        if (empty($this->query)) {
+            $this->select();
         }
 
         if (! str_contains($this->query, 'WHERE') ) {
