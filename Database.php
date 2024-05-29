@@ -5,7 +5,7 @@
 * Responsável pela conexão, montagem e execução de queries no banco de dados.
 * @author brunoggdev
 */
-class Database
+class HefestosORM
 {
     private static ?self $instancia = null;
     protected ?PDO $conexao;
@@ -33,7 +33,7 @@ class Database
 
 
     /**
-     * Retorna um array com o dsn, usuario e senha baseados nas configurações do arquivo app/config/database.php
+     * Formata as informações de conexão com o banco, retornando o dsn, usuario e senha
      * @author Brunoggdev
     */
     private function formatarConexao(array $config):array
