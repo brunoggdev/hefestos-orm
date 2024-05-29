@@ -71,8 +71,6 @@ class HefestosORM
     }
 
 
-
-
     /**
      * Fecha a conexão com o banco de dados.
      * @author Brunoggdev
@@ -84,8 +82,6 @@ class HefestosORM
     }
 
 
-
-
     /**
      * Define a tabela na qual o as próximas consultas serão executadas
     */
@@ -95,9 +91,6 @@ class HefestosORM
 
         return $this;
     }
-
-
-
 
 
     /**
@@ -112,7 +105,6 @@ class HefestosORM
 
         return $this;
     }
-
 
 
 
@@ -136,7 +128,6 @@ class HefestosORM
         return $retornar_id ? $this->idInserido() : $resultado;
     }
    
-
    
    
     /**
@@ -156,7 +147,6 @@ class HefestosORM
 
 
 
-
     /**
     * Adiciona um UPDATE na consulta
     * @author brunoggdev
@@ -172,7 +162,6 @@ class HefestosORM
         
         return $this->executarQuery();
     }
-
 
 
 
@@ -225,8 +214,6 @@ class HefestosORM
     }
 
 
-
-
     /**
     * Adiciona um OR na consulta e em seguida um where novamente
     * @author Brunoggdev
@@ -238,8 +225,6 @@ class HefestosORM
         
         return $this;
     }
-
-
 
 
     /**
@@ -254,8 +239,6 @@ class HefestosORM
     }
 
 
-
-
     /**
     * Adiciona um ORDER BY na query
     * @author brunoggdev
@@ -266,8 +249,6 @@ class HefestosORM
         
         return $this;
     }
-
-
 
 
     /**
@@ -286,8 +267,6 @@ class HefestosORM
     }
 
 
-
-
     /**
      * Pega o primeiro resultado da consulta, podendo retornar uma coluna especifica
      * @author brunoggdev
@@ -302,8 +281,6 @@ class HefestosORM
 
         return $this->como_array ? $resultado : new Colecao($resultado);
     }
-
-
 
 
     /**
@@ -323,8 +300,6 @@ class HefestosORM
 
         return $this->como_array ? $resultado : new Colecao($resultado);
     }
-
-
 
 
     /**
@@ -353,8 +328,6 @@ class HefestosORM
     }
 
 
-
-
     /**
     * Retorna a string montada da consulta
     * @author brunoggdev
@@ -363,8 +336,6 @@ class HefestosORM
     {
         return $this->query;
     }
-
-
 
 
     /**
@@ -377,8 +348,6 @@ class HefestosORM
     }
 
 
-
-
     /**
      * Retorna o último id inserido pela sql mais recente
      * @author Brunoggdev
@@ -389,8 +358,6 @@ class HefestosORM
     }
 
 
-
-
     /**
     * Retorna os erros que ocorreram durante a execução da SQL
     * @author brunoggdev
@@ -399,8 +366,6 @@ class HefestosORM
     {
         return $this->query_info->errorInfo();
     }
-
-
 
 
     /**
@@ -414,8 +379,6 @@ class HefestosORM
         return $this;
     }
 
-
-
     
     /**
     * Define o retorno do banco de dados como um objeto do tipo colecao
@@ -427,8 +390,6 @@ class HefestosORM
 
         return $this;
     }
-
-
 
 
     /**
@@ -444,7 +405,6 @@ class HefestosORM
 
 
 
-
     /**
     * Retorna todas as linhas da tabela desejada com todas as colunas ou colunas especificas
     * @author Brunoggdev
@@ -453,7 +413,6 @@ class HefestosORM
     {
         return $this->select($colunas)->todos($coluna_unica);
     }
-
 
 
 
