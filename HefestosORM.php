@@ -288,9 +288,11 @@ class HefestosORM
         $this->params = (array) $params;
         $this->checar_nome_tabela = false;
 
-        $pdostmt = $this->executarQuery(true);
+        if (!$this->executarQuery()) {
+            return false;
+        }
 
-        return $pdostmt->rowCount() ? $pdostmt : false;
+        return $this->query_info;
     }
 
 
@@ -494,7 +496,6 @@ class HefestosORM
     {
         return $this->where(['id' => $id])->primeiro($coluna);
     }
-
 
 
 
