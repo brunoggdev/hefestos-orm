@@ -7,15 +7,16 @@
 */
 class HefestosORM
 {
-    private static ?self $instancia = null;
+    protected static ?self $instancia = null;
     protected ?PDO $conexao;
     protected ?PDOStatement $query_info;
     protected string $tabela;
     protected string $query = '';
     protected array $params = [];
-    private bool $checar_nome_tabela = true;
-    private bool $como_array = true;
-    private int $fetch_mode = PDO::FETCH_ASSOC;
+    protected string $classe_de_retorno;
+    protected bool $checar_nome_tabela = true;
+    protected bool $como_array = true;
+    protected int $fetch_mode = PDO::FETCH_ASSOC;
 
     /**
      * Busca o array de conexão com o banco de dados e instancia o PDO.
@@ -278,14 +279,18 @@ class HefestosORM
      * Se informado um objeto como parâmetro ele será convertido para array.
      * @example $sql SELECT * FROM users WHERE id >= :id
      * @example $params ['id' => 1]
+     * @return bool|PDOStatement false em caso de falha ou PDOStatement em caso de sucesso (que avalila para true)
      * @author brunoggdev
     */
-    public function executar(string $sql, array|object $params = [])
+    public function executar(string $sql, array|object $params = []): bool|PDOStatement
     {
         $this->query = $sql;
         $this->params = (array) $params;
         $this->checar_nome_tabela = false;
-        return $this->executarQuery();
+
+        $pdostmt = $this->executarQuery(true);
+
+        return $pdostmt->rowCount() ? $pdostmt : false;
     }
 
 
@@ -295,7 +300,7 @@ class HefestosORM
      * Pega o primeiro resultado da consulta, podendo retornar uma coluna especifica
      * @author brunoggdev
     */
-    public function primeiro(?string $coluna = null)
+    public function primeiro(?string $coluna = null): mixed
     {
         $resultado = $this->executarQuery(true)->fetch($this->fetch_mode);
 
@@ -303,7 +308,7 @@ class HefestosORM
             return $resultado[$coluna] ?? null;
         }
 
-        return $this->como_array ? $resultado : new Colecao($resultado);
+        return $this->como_array ? $resultado : $this->retornarObjeto($resultado);
     }
 
 
@@ -315,7 +320,7 @@ class HefestosORM
      * @example $coluna_unica $db->tabela('pets')->select('nome')->todos(true);  //retorna diretamente um array com todos os nomes
      * @author brunoggdev
     */
-    public function todos(bool $coluna_unica = false)
+    public function todos(bool $coluna_unica = false): array
     {
         if (empty($this->query)) {
             throw new Exception('Parece que nenhuma consulta foi montada para retornar todos os seus resultados...');
@@ -324,9 +329,25 @@ class HefestosORM
         $fetch_mode = $coluna_unica ? PDO::FETCH_COLUMN : $this->fetch_mode;
         $resultado = $this->executarQuery(true)->fetchAll($fetch_mode);
 
-        return $this->como_array ? $resultado : new Colecao($resultado);
+        return $this->como_array ? $resultado : $this->retornarObjeto($resultado, true);
     }
 
+
+
+    /**
+     * Retorna o resultado da consulta no formato do objeto definido
+    */
+    public function retornarObjeto(array $resultado, bool $todos = false):mixed
+    {
+
+        $classe = $this->classe_de_retorno;
+
+        if ($todos) {
+            return array_map(fn($resultado) => new $classe($resultado), $resultado);
+        }
+
+        return new $classe($resultado);
+    }
 
 
 
@@ -339,9 +360,11 @@ class HefestosORM
     {
 
         if (empty($this->tabela) && $this->checar_nome_tabela) {
-            $this->checar_nome_tabela = true;
             throw new Exception('Não foi definida a tabela onde deve ser realizada a consulta.');
         }
+
+        // resetando a checagem sempre que esta função for chamada
+        $this->checar_nome_tabela = true;
 
         $query = $this->conexao->prepare($this->query);
         
@@ -421,12 +444,15 @@ class HefestosORM
 
 
     /**
-    * Define o retorno do banco de dados como um objeto do tipo colecao
-    * @author Brunoggdev
+     * Define o retorno do banco de dados como um objeto (ou array de objetos) da classe informada;
+     * O array de resultados será passado para o construtor da classe desejada.
+     * @param string $classe SuaClasse::class - O "nome qualificado" da classe desejada
+     * @author Brunoggdev
     */
-    public function comoColecao():self
+    public function comoObjeto(string $classe):self
     {
         $this->como_array = false;
+        $this->classe_de_retorno = $classe;
 
         return $this;
     }
@@ -471,7 +497,7 @@ class HefestosORM
 
 
 
-    
+
     /**
      * Retorna o primeiro resultado para o 'where' informado
     */
