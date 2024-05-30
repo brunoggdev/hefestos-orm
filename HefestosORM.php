@@ -24,7 +24,7 @@ class HefestosORM
      * com as mesmas chaves do padrão na pasta config.
      * @author brunoggdev
     */
-    public function __construct(?array $db_config = null)
+    public function __construct(array $db_config)
     {
         [$dsn, $usuario, $senha] = $this->formatarConexao($db_config);
 
