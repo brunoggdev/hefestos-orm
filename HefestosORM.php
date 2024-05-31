@@ -476,21 +476,21 @@ class HefestosORM
 
 
     /**
-     * Retorna da tabela desejada a linha (ou coluna especifica) com o id informado.
+     * Retorna da tabela desejada a linha (ou coluna especifica) com o id informado, podendo retornar uma coluna especifica
      * @author Brunoggdev
     */
     public function buscar(int|string $id, ?string $coluna = null):mixed
     {
-        return $this->where(['id' => $id])->primeiro($coluna);
+        return $this->primeiroOnde(['id' => $id], $coluna);
     }
 
 
 
     /**
-     * Retorna o primeiro resultado para o 'where' informado
+     * Retorna o primeiro resultado para o 'where' informado, podendo retornar uma coluna especifica
     */
-    public function primeiroOnde(array|string $where):mixed
+    public function primeiroOnde(array|string $where, ?string $coluna = null):mixed
     {
-        return $this->where($where)->primeiro();
+        return $this->where($where)->primeiro($coluna);
     }
 }
