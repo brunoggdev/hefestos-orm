@@ -374,8 +374,9 @@ class HefestosORM
         
         $resultado = $query->execute($this->params);
 
-        $this->params = [];
         $this->query_info = $query;
+        $this->query = '';
+        $this->params = [];
 
         return $retornar_query ? $query : $resultado;
     }
