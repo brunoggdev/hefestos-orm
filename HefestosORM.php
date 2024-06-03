@@ -438,6 +438,26 @@ class HefestosORM
     }
 
 
+    /**
+    * Retorna o PDO da conexão atual.
+    * @author brunoggdev
+    */
+    public function pdo():?PDO
+    {
+        return $this->conexao;
+    }
+
+
+    /**
+    * Retorna o PDOStatement da última operação.
+    * @author brunoggdev
+    */
+    public function pdoStatement():?PDOStatement
+    {
+        return $this->query_info;
+    }
+
+
 
 
     /**
