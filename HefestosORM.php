@@ -520,6 +520,11 @@ class HefestosORM
     */
     public function primeiroOnde(array|string $where, ?string $coluna = null):mixed
     {
+
+        if ($coluna) {
+            $this->select([$coluna]);
+        }
+
         return $this->where($where)->primeiro($coluna);
     }
 }
