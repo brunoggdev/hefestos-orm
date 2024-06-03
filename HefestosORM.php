@@ -264,9 +264,13 @@ class HefestosORM
     * Adiciona um ORDER BY na query
     * @author brunoggdev
     */
-    public function orderBy(string $column, string $order = 'ASC'):self
+    public function orderBy(string $coluna, string $order = 'ASC'):self
     {
-        $this->query .= "ORDER BY $column $order ";
+        if (empty($this->query)) {
+            $this->select(['*']);
+        }
+
+        $this->query .= "ORDER BY $coluna $order ";
         
         return $this;
     }
