@@ -304,6 +304,10 @@ class HefestosORM
     */
     public function primeiro(?string $coluna = null): mixed
     {
+        if (empty($this->query)) {
+            $this->select(['*']);
+        }
+        
         $resultado = $this->executarQuery(true)->fetch($this->fetch_mode);
 
         if($coluna){
