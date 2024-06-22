@@ -12,7 +12,13 @@
   "autoload": {
     "psr-4": {
       "Hefetos\\Database\\": ""
-    }
+    },
+    "files": [
+        "auxiliares.php"
+    ]
   },
-  "require": {}
+  "require": {
+    "php": "^8.1"
+  },
+  "minimum-stability": "dev"
 }
