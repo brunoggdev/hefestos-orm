@@ -1,9 +1,5 @@
 <?php
 
-namespace Hefestos\Database;
-
-use Exception;
-use PDO, PDOStatement;
 
 /**
 * Responsável pela conexão, montagem e execução de queries no banco de dados.
