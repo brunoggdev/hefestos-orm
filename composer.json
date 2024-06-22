@@ -11,10 +11,10 @@
   ],
   "autoload": {
     "psr-4": {
-      "Hefetos\\Database\\": ""
+      "Hefestos\\Database\\": "src/"
     },
     "files": [
-        "auxiliares.php"
+        "src/auxiliares.php"
     ]
   },
   "require": {
